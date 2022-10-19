@@ -70,8 +70,8 @@ int main(int argc, char **argv){
         char lines[stored_lines][512];
         int lastDifference = -1000000;
         int lastStop = -1;
-        next_data = lseek(fd1, next_hole, SEEK_DATA);
-        next_hole = lseek(fd1, next_data, SEEK_HOLE);
+        next_data = min(lseek(fd1, next_hole, SEEK_DATA), lseek(fd2, next_hole, SEEK_DATA));
+        next_hole = max(lseek(fd1, next_data, SEEK_HOLE), lseek(fd2, next_data, SEEK_HOLE));
 
         lseek(fd1, next_data, SEEK_SET);
         lseek(fd2, next_data, SEEK_SET);
